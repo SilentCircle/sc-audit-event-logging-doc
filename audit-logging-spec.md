@@ -1,5 +1,25 @@
 # Specification for Audit/Event Logging
 
+## Introduction
+
+Silent Circle tracks certain actions related to organizational
+accounts and their users for the purposes of security analysis and
+auditing.
+
+## Audit/event log format
+
+## API usage
+
+### Download audit/event logs
+
+    curl \
+      -H"Accept: application/json;version=1" \
+      -XGET \
+      "https://sccps.silentcircle.com/scmc/api/logs/?api_key=...&from=20170601T010203.141592Z&to=20170601T060203.141592Z"
+
+    {
+      logs: [...]
+    }
 
 ## Example audit/event logs
 
