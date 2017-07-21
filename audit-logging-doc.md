@@ -238,6 +238,13 @@ log entries returned in the response.
 
 The `logs` field contains a list of all logs returned by the query.
 
+## Audit/event log availability period
+
+Audit/event logs are made available for 2 weeks after the event
+occurs.  If the logs are not downloaded in this time the events become
+unavailable for download and are lost.  We suggest having automated
+systems to ensure that logs are downloaded periodically.
+
 ## Example audit/event logs
 
 In this section, we'll describe each of the types of events that we
