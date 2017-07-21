@@ -120,7 +120,11 @@ Here's an example request using the `curl` command-line utility:
     curl \
       -H"Accept: application/json;version=1" \
       -XGET \
-      "https://api.silentcircle.com/sm/api/logs/?api_key=...&since=20170601T010203.141592Z&until=20170601T060203.141592Z&count=4242"
+      "https://api.silentcircle.com/sm/api/logs/
+        ?api_key=...
+        &since=20170601T010203.141592Z
+        &until=20170601T060203.141592Z
+        &count=4242"
 
 We'll cover each piece.  The endpoint for the request is:
 
