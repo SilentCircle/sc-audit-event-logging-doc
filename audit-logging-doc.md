@@ -62,7 +62,7 @@ depends on the `type`.
     "result": "ok",
 
 The `result` field indicates whether the action corresponding to the
-event succeeded or failed.  If the event succeeded when we return
+event succeeded or failed.  If the event succeeded then we return
 `"result": "ok"`.  If it failed then we return `"result": "fail"`.
 
     "description": "User login by SSO succeeded",
