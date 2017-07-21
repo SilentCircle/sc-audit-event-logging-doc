@@ -430,12 +430,12 @@ When a user is deleted from your organization, we provide the
 ### User set as organizational admin
 
 When a user is set to be an administrative user in your Silent
-Manager, we provide the `user-set-as-admin` event.
+Manager, we provide the `org-add-admin` event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-set-as-admin",
+      "type": "org-add-admin",
       "result": "ok",
       "description": "User has been set as an administrator",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -446,12 +446,12 @@ Manager, we provide the `user-set-as-admin` event.
 ### User removed as organizational admin
 
 When a user is set to no longer be an administrative user in your
-Silent Manager, we provide the `user-unset-as-admin` event.
+Silent Manager, we provide the `org-remove-admin` event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-unset-as-admin",
+      "type": "org-remove-admin",
       "result": "ok",
       "description": "User has been removed as an administrator",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -462,13 +462,13 @@ Silent Manager, we provide the `user-unset-as-admin` event.
 ### User set as group manager
 
 When a user is promoted to be a manager of a group, we provide the
-`user-set-as-group-manager` event.  The group to be managed appears in
-the `targets`.
+`group-add-manager` event.  The group to be managed appears in the
+`targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-set-as-group-manager",
+      "type": "group-add-manager",
       "result": "ok",
       "description": "User has been set as a group manager",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -480,13 +480,13 @@ the `targets`.
 ### User removed as group manager
 
 When a user is demoted from being a manager of a group, we provide the
-`user-unset-as-group-manager` event.  The group no longer being
-managed by this user appears in the `targets`.
+`group-remove-manager` event.  The group no longer being managed by
+this user appears in the `targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-unset-as-group-manager",
+      "type": "group-remove-manager",
       "result": "ok",
       "description": "User has been set as a group manager",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -497,13 +497,13 @@ managed by this user appears in the `targets`.
 
 ### User added to group
 
-When a user is added to a group, we provide the `user-add-to-group`
+When a user is added to a group, we provide the `group-add-user`
 event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-add-to-group",
+      "type": "group-add-user",
       "result": "ok",
       "description": "User has been added to group",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -515,12 +515,12 @@ event.
 ### User removed from group
 
 When a user is removed from a group, we provide the
-`user-remove-from-group` event.
+`group-remove-user` event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-remove-from-group",
+      "type": "group-remove-user",
       "result": "ok",
       "description": "User has been removed from group",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -531,14 +531,13 @@ When a user is removed from a group, we provide the
 
 ### Plan assigned to user
 
-When a plan is assigned to a user, we provide the
-`user-assign-to-plan` event.  The plan assigned appears in the
-`targets`.
+When a plan is assigned to a user, we provide the `plan-add-user`
+event.  The plan assigned appears in the `targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-assign-to-plan",
+      "type": "plan-add-user",
       "result": "ok",
       "description": "Plan assigned to user",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -549,14 +548,13 @@ When a plan is assigned to a user, we provide the
 
 ### Plan removed from user
 
-When a plan is removed from a user, we provide the
-`user-unassign-from-plan` event.  The plan no longer assigned appears
-in the `targets`.
+When a plan is removed from a user, we provide the `plan-remove-user`
+event.  The plan no longer assigned appears in the `targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-unassign-from-plan",
+      "type": "plan-remove-user",
       "result": "ok",
       "description": "Plan unassigned from user",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -590,12 +588,12 @@ applied to the user.
 ### User logs in on new device
 
 When a user logs in on a new device, adding that device to his or her
-account, we provide the `user-create-device` event.
+account, we provide the `device-create` event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-create-device",
+      "type": "device-create",
       "result": "ok",
       "description": "User created new device",
       "actors": [{"type": "user", "id": "john@example.com"}],
@@ -610,12 +608,12 @@ account, we provide the `user-create-device` event.
 When a device is deleted from a user, deauthorizing that instance of
 Silent Phone on the device from further contact with our service and
 causing Silent Phone on the device to wipe itself and return to the
-login screen, we provide the `user-destroy-device` event.
+login screen, we provide the `device-destroy` event.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-destroy-device",
+      "type": "device-destroy",
       "result": "ok",
       "description": "User deleted device",
       "actors": [{"type": "user", "id": "john@example.com"}],
