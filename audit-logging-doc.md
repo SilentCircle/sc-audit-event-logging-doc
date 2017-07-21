@@ -158,7 +158,7 @@ received from Silent Circle.
     before=20170601T060203.141592Z
 
 The `since`, `after`, `until`, and `before` parameters constrain the
-time of the logs received.
+time of the logs returned.
 
 These datetime values can be formatted according to RFC 3339 and then
 URL-encoded, or may be formatted without the `-` and `:` characters as
