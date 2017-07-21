@@ -1,4 +1,5 @@
-# Specification for Event/Audit Logging
+# Specification for Audit/Event Logging
+
 
 ## Example audit/event logs
 
