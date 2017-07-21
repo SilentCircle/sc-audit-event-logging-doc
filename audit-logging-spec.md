@@ -1,126 +1,296 @@
 # Specification for Event/Audit Logging
 
-Logging of:
+## Events
 
-- SSO account creation via login
+### Failed login
 
-  - timestamp
-  - alias
-  - method
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-login",
+      "result": "fail",
+      "description": "User login by SSO failed due to expired token",
+      "actors": [],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-- Password reset token request
+### Successful login
 
-  - timestamp
-  - alias
-  - method
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-login",
+      "result": "ok",
+      "description": "User login by SSO succeeded",
+      "actors": [{"type": "user", "id": "john@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-- Password reset request
+### Password reset token request
 
-  - timestamp
-  - alias
-  - method
-  - errors
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-password-reset-token-request",
+      "result": "ok",
+      "description": "User password reset token sent by email",
+      "actors": [],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-    - invalid_token
+### Password reset by token
 
-- Login redirection to SSO
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-password-reset-by-token",
+      "result": "ok",
+      "description": "User password reset using valid reset token",
+      "actors": [],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-  - timestamp
-  - alias
-  - method
+### Password change by user
 
-- Password login
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-password-change",
+      "result": "ok",
+      "description": "User password changed",
+      "actors": [{"type": "user", "id": "john@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-  - timestamp
-  - alias
-  - method
-  - errors
+### Password change by SM admin
 
-    - invalid_password
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-password-change",
+      "result": "ok",
+      "description": "User password changed",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-- SSO login
+### Account reset
 
-  - timestamp
-  - alias
-  - method
-  - errors
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-reset",
+      "result": "ok",
+      "description": "User account reset",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": []
+    }
 
-    - sso_rejected
+### New user created by Silent Manager admin
 
-- Reset account
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-create",
+      "result": "ok",
+      "description": "User created",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": [
+        {"action": "create",
+         "value": {
+           "type": "user",
+           "id": "john@example.com"}}]
+    }
 
-  - timestamp
-  - method
-  - actor alias
-  - users
+### New user created by SSO login
 
-- Users added
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-create",
+      "result": "ok",
+      "description": "User created by SSO login",
+      "actors": [{"type": "user", "id": "john@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": [
+        {"action": "create",
+         "value": {
+           "type": "user",
+           "id": "john@example.com"}}]
+    }
 
-  - timestamp
-  - method
-  - actor alias
-  - users
+### Plan assigned to user
 
-    - username
-    - first_name
-    - last_name
-    - email
-    - groups
-    - plan
-    - directory_listing_visibility
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-plan-change",
+      "result": "ok",
+      "description": "Plan assigned to user",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com",
+                   "type": "plan", "name": "SP w/o SW"}],
+      "data": [
+        {"action": "add",
+         "value": {
+           "type": "plan",
+           "name": "SP w/o SW"}}]
+    }
 
-- Groups added
+### User details change
 
-  - timestamp
-  - method
-  - actor alias
-  - groups
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-change",
+      "result": "ok",
+      "description": "User details changed",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": [
+        {"action": "set",
+         "key": "first-name",
+         "value": "John"},
+        {"action": "set",
+         "key": "last-name",
+         "value": "Smith"},
+        {"action": "set",
+         "key": "email",
+         "value": "john@example.com"}]
+    }
 
-    - name
+### User logs in on new device
 
-- CiC whitelist organizations
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-device-list-change",
+      "result": "ok",
+      "description": "User created new device",
+      "actors": [{"type": "user", "id": "john@example.com"}],
+      "targets": [
+        {"type": "user", "id": "john@example.com"},
+        {"type": "device", "id": "9cd10d65a90f4ac1190f6ca40985e8a8"}],
+      "data": [
+        {"action": "create",
+         "value": {
+           "type": "device",
+           "id": "9cd10d65a90f4ac1190f6ca40985e8a8"}}]
+    }
 
-  - timestamp
-  - method
-  - actor alias
-  - organizations
+### User deletes device
 
-    - circle_id
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-device-list-change",
+      "result": "ok",
+      "description": "User deleted device",
+      "actors": [{"type": "user", "id": "john@example.com"}],
+      "targets": [
+        {"type": "user", "id": "john@example.com"},
+        {"type": "device", "id": "9cd10d65a90f4ac1190f6ca40985e8a8"}],
+      "data": [
+        {"action": "destroy",
+         "value": {
+           "type": "device",
+           "id": "9cd10d65a90f4ac1190f6ca40985e8a8"}}]
+    }
 
-- CiC de-whitelist organizations
+### Outside organization added to Circle-in-Circle whitelist
 
-  - timestamp
-  - method
-  - actor alias
-  - organizations
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "cic-whitelist-change",
+      "result": "ok",
+      "description": "Circle-in-Circle whitelist added circle",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "circle", "id": "7249f60d-a015-4302-9fcd-1f3ba1fe6b2f"}],
+      "data": [
+        {"action": "add",
+         "value": {
+           "type": "circle",
+           "id": "a1370199-e22c-4a8c-8401-fc9d62d54f28"}}]
+    }
 
-    - circle_id
+### Outside organization removed from Circle-in-Circle whitelist
 
-- CiC whitelist users
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "cic-whitelist-change",
+      "result": "ok",
+      "description": "Circle-in-Circle whitelist removed circle",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "circle", "id": "7249f60d-a015-4302-9fcd-1f3ba1fe6b2f"}],
+      "data": [
+        {"action": "remove",
+         "value": {
+           "type": "circle",
+           "id": "a1370199-e22c-4a8c-8401-fc9d62d54f28"}}]
+    }
 
-  - timestamp
-  - method
-  - actor alias
-  - users
+### Outside user added to Circle-in-Circle whitelist
 
-    - user_alias
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "cic-whitelist-change",
+      "result": "ok",
+      "description": "Circle-in-Circle whitelist added circle",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "circle", "id": "7249f60d-a015-4302-9fcd-1f3ba1fe6b2f"}],
+      "data": [
+        {"action": "add",
+         "value": {
+           "type": "user",
+           "id": "john@example.com"}}]
+    }
 
-- CiC de-whitelist users
+### Outside user removed from Circle-in-Circle whitelist
 
-  - timestamp
-  - method
-  - actor alias
-  - users
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "cic-whitelist-change",
+      "result": "ok",
+      "description": "Circle-in-Circle whitelist added circle",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "circle", "id": "7249f60d-a015-4302-9fcd-1f3ba1fe6b2f"}],
+      "data": [
+        {"action": "remove",
+         "value": {
+           "type": "user",
+           "id": "john@example.com"}}]
+    }
 
-    - user_alias
+### Organizational settings changed
 
--  Change setting
-
-  - timestamp
-  - method
-  - actor alias
-  - settings
-
-    - key
-    - old_value
-    - new_value
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "org-setting-change",
+      "result": "ok",
+      "description": "Organizational settings changed",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [],
+      "data": [
+        {"action": "set",
+         "key": "notify-on-create-sso-user",
+         "value": true},
+        {"action": "set",
+         "key": "notify-on-add-device-to-user",
+         "value": true},
+        {"action": "set",
+         "key": "notify-on-remove-device-from-user",
+         "value": true}]
+    }
