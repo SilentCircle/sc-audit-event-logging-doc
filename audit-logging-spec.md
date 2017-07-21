@@ -1,6 +1,6 @@
 # Specification for Event/Audit Logging
 
-## Events
+## Example audit/event logs
 
 ### Failed login
 
