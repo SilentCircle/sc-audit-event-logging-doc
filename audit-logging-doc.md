@@ -164,7 +164,7 @@ without the `-` and `:` characters as is permitted by ISO 8601.
 ### API request response
 
 The response from the API is JSON-formatted data that includes a
-version number, a unique transaction identified in type 4 RFC 4122
+version number, a unique transaction identifier in type 4 RFC 4122
 UUID format, and a list of all audit/event logs returned by the query.
 
 The headers include a `Content-Type` of `application/json`.  For
