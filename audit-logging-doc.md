@@ -531,13 +531,14 @@ When a user is removed from a group, we provide the
 
 ### Plan assigned to user
 
-When a plan is assigned to a user, we provide the `user-assign-plan`
-event.  The plan assigned appears in the `targets`.
+When a plan is assigned to a user, we provide the
+`user-assign-to-plan` event.  The plan assigned appears in the
+`targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-assign-plan",
+      "type": "user-assign-to-plan",
       "result": "ok",
       "description": "Plan assigned to user",
       "actors": [{"type": "user", "id": "mary@example.com"}],
@@ -549,13 +550,13 @@ event.  The plan assigned appears in the `targets`.
 ### Plan removed from user
 
 When a plan is removed from a user, we provide the
-`user-unassign-plan` event.  The plan no longer assigned appears in
-the `targets`.
+`user-unassign-from-plan` event.  The plan no longer assigned appears
+in the `targets`.
 
     {
       "id": "945d0512-026d-4081-b7a8-8323820233b7",
       "timestamp": "2017-06-01T01:02:03.141592Z",
-      "type": "user-unassign-plan",
+      "type": "user-unassign-from-plan",
       "result": "ok",
       "description": "Plan unassigned from user",
       "actors": [{"type": "user", "id": "mary@example.com"}],
