@@ -4,7 +4,7 @@
 
 Silent Circle tracks certain actions related to organizational
 accounts and their users for the purposes of security analysis and
-auditing.  These events are stored immutably by Silent Circle for a
+auditing.  Each event is stored immutably by Silent Circle for a
 limited time after the event occurs.  The events can be downloaded
 using our API and may be ingested by a Security Information and Event
 Management (SIEM) system.
