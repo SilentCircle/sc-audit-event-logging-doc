@@ -120,11 +120,11 @@ Here's an example request using the `curl` command-line utility:
     curl \
       -H"Accept: application/json;version=1" \
       -XGET \
-      "https://sccps.silentcircle.com/scmc/api/logs/?api_key=...&from=20170601T010203.141592Z&to=20170601T060203.141592Z"
+      "https://api.silentcircle.com/sm/api/logs/?api_key=...&since=20170601T010203.141592Z&until=20170601T060203.141592Z&count=4242"
 
 We'll cover each piece.  The endpoint for the request is:
 
-    https://sccps.silentcircle.com/scmc/api/logs/
+    https://api.silentcircle.com/sm/api/logs/
 
 This is the URL to which we want to send the request.
 
@@ -139,33 +139,60 @@ we're willing to receive.  In this case, we'll be receiving
 JSON-formatted data, and we want to use version 1 of the API, the
 current version.
 
-There are three URL parameters accepted and required by the API:
+There are three URL parameters required by the API: the API key, the
+time of the earliest events we want, and the time of the latest events
+we want.
 
     api_key=...
 
 In the `api_key` parameter, we'll include the full API key that we
 received from Silent Circle.
 
-    from=20170601T010203.141592Z
+    since=20170601T010203.141592Z
+    after=20170601T010203.141592Z
+    until=20170601T060203.141592Z
+    before=20170601T060203.141592Z
 
-The `from` parameter indicates the time of the earliest logs that we
-want to receive.  The datetime value provided can be formatted
-according to RFC 3339 and then URL-encoded, or it may be formatted
-without the `-` and `:` characters as is permitted by ISO 8601.
+The `since`, `after`, `until`, and `before` parameters constrain the
+time of the logs received.
 
+These datetime values can be formatted according to RFC 3339 and then
+URL-encoded, or may be formatted without the `-` and `:` characters as
+is permitted by ISO 8601.
 
-    to=20170601T060203.141592Z
+At least one of `since` or `after` and at least one of `until` or
+`before` must be provided.
 
-Similarly, the `to` parameter indicates the time of the latest logs
-that we want to receive.  The datetime value provided can be formatted
-according to RFC 3339 and then URL-encoded, or it may be formatted
-without the `-` and `:` characters as is permitted by ISO 8601.
+The `since` parameter indicates the time of the earliest logs that we
+want to receive.  This returns logs timestamped "greater than or equal
+to" this time.
+
+The `after` parameter indicates that we want to receive logs that
+occur after the provided time.  This returns logs timestamped "greater
+than" this time.
+
+The `until` parameter indicates that we want to receive logs that
+occur up to and including the provided time.  This returns logs
+timestamped "less than or equal to" this time.
+
+The `before` parameter indicates that we want to receive logs that
+occur up but not including the provided time.  This returns logs
+timestamped "less than" this time.
+
+The `count` parameter indicates the number of log entries that we want
+to receive in the response to this request.  If the number of logs
+available is greater than the value provided for `count`, then we'll
+return only `count` records.  The response will include the time of
+the last log entry included so that you may use this time in a new
+request using the `after` parameter to perform pagination.
 
 ### API request response
 
 The response from the API is JSON-formatted data that includes a
 version number, a unique transaction identifier in type 4 RFC 4122
-UUID format, and a list of all audit/event logs returned by the query.
+UUID format, the times of the first and last log entries included in
+the response, a count of the number of events returned, and a list of
+all audit/event logs returned by the query.
 
 The headers include a `Content-Type` of `application/json`.  For
 example:
@@ -176,6 +203,9 @@ example:
     {
       version: 1,
       tid: "18e015ae-5e56-4d65-b719-ea0caa4f6eab",
+      since: "2017-06-01T01:02:03.141592Z",
+      until: "2017-06-01T06:02:03.141592Z",
+      count: 4242,
       logs: [...]
     }
 
@@ -192,6 +222,15 @@ may return the closest supported version.
 
 The `tid` field is a unique transaction identifier which may be used
 for troubleshooting.
+
+The `since` field is a datetime that represents the timestamp of the
+first and earliest event returned in the results.
+
+The `until` field is a datetime that represents the timestamp of the
+last and latest event returned in the results.
+
+The `count` field is an integer representing the number of audit/event
+log entries returned in the response.
 
 The `logs` field contains a list of all logs returned by the query.
 
