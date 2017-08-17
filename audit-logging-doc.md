@@ -103,6 +103,40 @@ the values for each:
          "notify_on_add_device_to_user": true,
          "notify_on_remove_device_from_user": true}}]
 
+### List of event types
+
+We support the following event types.  The semantics and details of
+each event type are described later in this document.
+
+    user-login
+    user-reset-password-token-request
+    user-reset-password-by-token
+    user-change-password
+    user-reset
+    user-create
+    user-destroy
+    org-add-admin
+    org-remove-admin
+    group-create
+    group-destroy
+    group-add-manager
+    group-remove-manager
+    group-add-user
+    group-remove-user
+    plan-add-user
+    plan-remove-user
+    user-change-details
+    user-change-directory-visibility
+    device-create
+    device-destroy
+    cic-disconnect-global
+    cic-connect-global
+    cic-whitelist-add-circle
+    cic-whitelist-remove-circle
+    cic-whitelist-add-user
+    cic-whitelist-remove-user
+    org-change-settings
+
 ## API for retrieving audit/event logs
 
 To use the API, we need an API key.  Silent Circle provides this API
