@@ -67,7 +67,10 @@ event succeeded or failed.  If the event succeeded then we return
 
     "description": "User login by SSO succeeded",
 
-The `description` is a human-readable description of the event.
+The `description` is a human-readable description of the event.  We do
+not guarantee the stability of the value in this field.  It should not
+be parsed.  Instead, the relevant data should be extracted from the
+other fields.
 
     "actors": [{"type": "user", "id": "john@example.com"}],
 
