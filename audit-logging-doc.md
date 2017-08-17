@@ -282,7 +282,7 @@ occurs.  If the logs are not downloaded in this time the events become
 unavailable for download and are lost.  We suggest having automated
 systems to ensure that logs are downloaded periodically.
 
-## Example audit/event logs
+## Supported audit/event log types
 
 In this section, we'll describe each of the types of events that we
 support.  For each, we'll provide an example of data that may be
