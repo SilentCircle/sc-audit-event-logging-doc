@@ -459,6 +459,39 @@ Silent Manager, we provide the `org-remove-admin` event.
       "data": []
     }
 
+
+### Group created by Silent Manager admin
+
+When a group is created in your organization, we provide the
+`group-create` event.
+
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "group-create",
+      "result": "ok",
+      "description": "New group created",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "group", "name": "Sales"}],
+      "data": []
+    }
+
+### Group deleted by Silent Manager admin
+
+When a group is deleted from your organization, we provide the
+`group-destroy` event.
+
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "group-destroy",
+      "result": "ok",
+      "description": "Group destroyed",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "group", "name": "Sales"}],
+      "data": []
+    }
+
 ### User set as group manager
 
 When a user is promoted to be a manager of a group, we provide the
