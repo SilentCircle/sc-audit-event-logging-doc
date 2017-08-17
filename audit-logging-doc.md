@@ -618,6 +618,33 @@ applied to the user.
            "email": "john@example.com"}}]
     }
 
+### User directory visibility changed
+
+When the user's visibility in the organizational directory is changed,
+we provide the `user-change-directory-visibility` event.
+
+    {
+      "id": "945d0512-026d-4081-b7a8-8323820233b7",
+      "timestamp": "2017-06-01T01:02:03.141592Z",
+      "type": "user-change-directory-visibility",
+      "result": "ok",
+      "description": "User directory visibility set",
+      "actors": [{"type": "user", "id": "mary@example.com"}],
+      "targets": [{"type": "user", "id": "john@example.com"}],
+      "data": [
+        {"type": "user-directory-visibility",
+         "values": {
+           "visibility": "same-org|hidden"}}]
+    }
+
+The value of `visibility` may be either `same-org` or `hidden`.  The
+`same-org` value means that the user appears in search results by name
+for other users within the organization.  The `hidden` value means
+that the user does not appear in searches performed by name.  Note
+that a user will appear as a result if the user's exact phone number
+or username is entered regardless of the user's directory visibility
+setting.
+
 ### User logs in on new device
 
 When a user logs in on a new device, adding that device to his or her
